@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+
+<xacro:macro name="spine_center">
+    <link name="spine_center_link">
+        <inertial>
+            <mass value="0.412971"/>
+            <origin xyz="-0.000375 -0.001924 -0.03454"/>
+            <inertia ixx="9.067E-3" ixy="-8.901E-4" ixz="7.674E-5"
+                     iyy="5.927E-3" iyz="4.114E-5" izz="1.033E-2"/>
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/spine/spine_center.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/spine/spine_center.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="spine_center_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="spine_center_link"/>
+    </joint>
+</xacro:macro>
+
+</robot>

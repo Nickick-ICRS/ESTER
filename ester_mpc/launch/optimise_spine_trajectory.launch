@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="controller_override" default=""/>
+    <arg name="debug" default="false"/>
+    <arg name="profile" default="false"/>
+    <rosparam command="load" file="$(find ester_mpc)/config/mpc.yaml"/>
+    <group unless="$(eval arg('debug') or arg('profile'))">
+        <node name="optimise_spine" pkg="ester_mpc" type="optimise_spine_trajectory"
+            output="log">
+        </node>
+    </group>
+    <group if="$(arg debug)">
+        <node name="optimise_spine" pkg="ester_mpc" type="optimise_spine_trajectory"
+            output="screen"
+            launch-prefix="xterm -e gdb --args">
+        </node>
+    </group>
+    <group if="$(eval arg('profile') and not arg('debug'))">
+        <node name="optimise_spine" pkg="ester_mpc" type="optimise_spine_trajectory"
+            output="log"
+            launch-prefix="valgrind --tool=callgrind --callgrind-out-file='callgrind.dartMPC.%p'">
+        </node>
+    </group>
+</launch>

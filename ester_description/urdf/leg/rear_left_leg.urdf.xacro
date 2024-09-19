@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.ordf/wiki/xacro" name="ester">
+    <xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+    <xacro:include filename="$(find ester_description)/urdf/leg/leg.urdf.xacro"/>
+
+    <!-- Dummy shoulder joint -->
+    <link name="rear_left_hip_aa_link"/>
+    <xacro:rear_left_hip_fe/>
+    <xacro:rear_left_upper_leg/>
+    <xacro:lower_leg front="rear" side="left"/>
+    <xacro:foot_contact front="rear" side="left"/>
+</robot>

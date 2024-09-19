@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:property name="M_PI" value="3.1415926535897931"/>
+<!-- 300kv at 24V -->
+<xacro:property name="MOTOR_VELOCITY_LIMIT" value="750"/>
+<!-- 300kv at 10A -->
+<xacro:property name="MOTOR_EFFORT_LIMIT" value="0.27"/>
+<xacro:property name="JOINT_INTERFACE"
+    value="hardware_interface/EffortJointInterface"/>
+<xacro:property name="JOINT_DAMPING" value="0.001"/>
+<xacro:property name="JOINT_FRICTION" value="0.0"/>
+
+<xacro:property name="FRONT_LEG_PITCH" value="${45*M_PI/180}"/>
+</robot>

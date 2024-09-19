@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ester_description)/urdf/spine/spine_pitch.transmission.xacro"/>
+
+<xacro:macro name="spine_pitch"
+             params="front *joint_origin **inertial **geometry">
+    <link name="${front}_spine_pitch_link">
+        <inertial>
+            <xacro:insert_block name="inertial"/>
+        </inertial>
+        <visual>
+            <xacro:insert_block name="geometry"/>
+        </visual>
+        <collision>
+            <xacro:insert_block name="geometry"/>
+        </collision>
+    </link>
+
+    <joint name="${front}_spine_pitch_joint" type="revolute">
+        <xacro:insert_block name="joint_origin"/>
+        <axis xyz="0 1 0"/>
+        <limit upper="${M_PI / 12}" lower="${-M_PI / 12}" velocity="${MOTOR_VELOCITY_LIMIT / 16}" effort="${MOTOR_EFFORT_LIMIT * 16}"/>
+        <dynamics damping="${JOINT_DAMPING}" friction="${JOINT_FRICTION}"/>
+        <parent link="spine_center_link"/>
+        <child link="${front}_spine_pitch_link"/>
+    </joint>
+
+    <xacro:spine_pitch_transmission front="${front}"/>
+</xacro:macro>
+
+<xacro:macro name="front_spine_pitch">
+    <xacro:spine_pitch front="front">
+        <origin xyz="0.045 0.0 -0.015" rpy="0 0 0"/>
+        <inertial>
+            <mass value="0.135102"/>
+            <origin xyz="-0.007075 -0.000188 -0.006485"/>
+            <inertia ixx="5.528E-4" ixy="3.264E-6" ixz="8.008E-5"
+                     iyy="8.590E-4" iyz="2.381E-6" izz="6.630E-4"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/spine/front_spine_pitch.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:spine_pitch>
+</xacro:macro>
+
+<xacro:macro name="rear_spine_pitch">
+    <xacro:spine_pitch front="rear">
+        <origin xyz="-0.045 0.0 -0.015" rpy="0 0 0"/>
+        <inertial>
+            <mass value="0.131658"/>
+            <origin xyz="-0.006128 0.00016 -0.007237"/>
+            <inertia ixx="5.096E-4" ixy="-3.566E-6" ixz="4.115E-5"
+                     iyy="7.796E-4" iyz="-2.003E-6" izz="6.027E-4"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/spine/rear_spine_pitch.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:spine_pitch>
+</xacro:macro>
+
+</robot>

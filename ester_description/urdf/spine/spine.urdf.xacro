@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+<xacro:include filename="$(find ester_description)/urdf/spine/spine_center.urdf.xacro"/>
+<xacro:include filename="$(find ester_description)/urdf/spine/spine_pitch.urdf.xacro"/>
+<xacro:include filename="$(find ester_description)/urdf/spine/spine_yaw.urdf.xacro"/>
+<xacro:include filename="$(find ester_description)/urdf/spine/imu.urdf.xacro"/>
+
+<xacro:macro name="spine">
+    <xacro:spine_center/>
+    <xacro:front_spine_pitch/>
+    <xacro:rear_spine_pitch/>
+    <xacro:front_spine_yaw/>
+    <xacro:rear_spine_yaw/>
+    <xacro:imu parent_link="rear_spine_yaw_link">
+        <origin xyz="-0.13275 0 0.017" rpy="0 0 0"/>
+    </xacro:imu>
+</xacro:macro>
+
+</robot>

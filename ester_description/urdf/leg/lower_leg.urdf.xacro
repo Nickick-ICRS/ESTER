@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+<xacro:include filename="$(find ester_description)/urdf/leg/lower_leg.transmission.xacro"/>
+
+<xacro:macro name="lower_leg" params="front:={'front'} side:={'left'}">
+    <xacro:lower_leg_link front="${front}" side="${side}"/>
+    <xacro:lower_leg_joint front="${front}" side="${side}"/>
+    <xacro:lower_leg_transmission front="${front}" side="${side}"/>
+</xacro:macro>
+
+<xacro:macro name="lower_leg_link" params="front:={'front'} side:={'left'}">
+    <link name="${front}_${side}_lower_leg_link">
+        <inertial>
+            <xacro:if value="${front == 'front'}">
+                <mass value="0.023961"/>
+                <xacro:if value="${side == 'left'}">
+                    <origin xyz="0 0.00816 -0.044589"/>
+                    <inertia ixx="3.727E-05" ixy="-5.628E-16" ixz="2.285E-15"
+                             iyy="3.709E-05" iyz="-5.027E-06" izz="1.815E-06"/>
+                </xacro:if>
+                <xacro:if value="${side == 'right'}">
+                    <origin xyz="0 -0.00816 -0.044589"/>
+                    <inertia ixx="3.727E-05" ixy="-5.628E-16" ixz="2.285E-15"
+                             iyy="3.709E-05" iyz="5.027E-06"  izz="1.815E-06"/>
+                </xacro:if>
+            </xacro:if>
+            <xacro:if value="${front == 'rear'}">
+                <mass value="0.029071"/>
+                <xacro:if value="${side == 'left'}">
+                    <origin xyz="0 0.008801 -0.056722"/>
+                    <inertia ixx="6.791E-05" ixy="-1.480E-16" ixz="2.960E-15"
+                             iyy="6.774E-05" iyz="-7.319E-06" izz="2.092E-06"/>
+                </xacro:if>
+                <xacro:if value="${side == 'right'}">
+                    <origin xyz="0 -0.008801 -0.056722"/>
+                    <inertia ixx="6.791E-05" ixy="-1.480E-16" ixz="2.960E-15"
+                             iyy="6.774E-05" iyz="7.319E-06" izz="2.092E-06"/>
+                </xacro:if>
+            </xacro:if>
+        </inertial>
+
+        <visual>
+            <xacro:if value="${side == 'left'}">
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+            </xacro:if>
+            <xacro:if value="${side == 'right'}">
+                <origin xyz="0 0 0" rpy="0 0 ${M_PI}"/>
+            </xacro:if>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/${front}_lower_leg.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </visual>
+
+        <collision>
+            <xacro:if value="${side == 'left'}">
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+            </xacro:if>
+            <xacro:if value="${side == 'right'}">
+                <origin xyz="0 0 0" rpy="0 0 ${M_PI}"/>
+            </xacro:if>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/${front}_lower_leg.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+</xacro:macro>
+
+<xacro:macro name="lower_leg_joint" params="front:={'front'} side:={'left'}">
+    <joint name="${front}_${side}_lower_leg_joint" type="revolute">
+        <axis xyz="0 1 0"/>
+        <limit upper="${4 * M_PI / 5}" lower="${- 4 * M_PI / 5}" velocity="${MOTOR_VELOCITY_LIMIT / 16}" effort="${MOTOR_EFFORT_LIMIT * 16}"/>
+        <dynamics damping="${JOINT_DAMPING}" friction="${JOINT_FRICTION}"/>
+        <xacro:if value="${front == 'rear'}">
+            <xacro:if value="${side == 'left'}">
+                <origin xyz="0 0.0315 -0.134" rpy="0 0 0"/>
+            </xacro:if>
+            <xacro:if value="${side == 'right'}">
+                <origin xyz="0 -0.0315 -0.134" rpy="0 0 0"/>
+            </xacro:if>
+        </xacro:if>
+        <xacro:if value="${front == 'front'}">
+            <xacro:if value="${side == 'left'}">
+                <origin xyz="0 0.0315 -0.1232" rpy="0 0 0"/>
+            </xacro:if>
+            <xacro:if value="${side == 'right'}">
+                <origin xyz="0 -0.0315 -0.1232" rpy="0 0 0"/>
+            </xacro:if>
+        </xacro:if>
+
+        <parent link="${front}_${side}_upper_leg_link"/>
+        <child link="${front}_${side}_lower_leg_link"/>
+    </joint>
+</xacro:macro>
+
+</robot>

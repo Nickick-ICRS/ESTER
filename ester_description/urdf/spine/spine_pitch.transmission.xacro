@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+
+<xacro:macro name="spine_pitch_transmission" params="front">
+    <transmission name="${front}_spine_pitch_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${front}_spine_pitch_joint">
+            <hardwareInterface>${JOINT_INTERFACE}</hardwareInterface>
+        </joint>
+        <actuator name="${front}_spine_pitch_motor">
+            <hardwareInterface>${JOINT_INTERFACE}</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+</xacro:macro>
+
+</robot>
+

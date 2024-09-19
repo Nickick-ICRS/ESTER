@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+<xacro:include filename="$(find ester_description)/urdf/leg/hip_fe.transmission.xacro"/>
+
+<xacro:macro name="hip_fe"
+             params="front_side *joint_origin **inertial **geometry">
+    <link name="${front_side}_hip_fe_link">
+        <inertial>
+            <xacro:insert_block name="inertial"/>
+        </inertial>
+        <visual>
+            <xacro:insert_block name="geometry"/>
+        </visual>
+        <collision>
+            <xacro:insert_block name="geometry"/>
+        </collision>
+    </link>
+
+    <joint name="${front_side}_hip_fe_joint" type="revolute">
+        <xacro:insert_block name="joint_origin"/>
+        <axis xyz="1 0 0"/>
+        <xacro:if value="${front_side.endswith('left')}">
+            <limit upper="${M_PI / 4}" lower="${-M_PI / 18}" velocity="${MOTOR_VELOCITY_LIMIT / 9}" effort="${MOTOR_EFFORT_LIMIT * 9}"/>
+        </xacro:if>
+        <xacro:unless value="${front_side.endswith('left')}">
+            <limit upper="${M_PI / 18}" lower="${-M_PI / 4}" velocity="${MOTOR_VELOCITY_LIMIT / 9}" effort="${MOTOR_EFFORT_LIMIT * 9}"/>
+        </xacro:unless>
+        <dynamics damping="${JOINT_DAMPING}" friction="${JOINT_FRICTION}"/>
+        <parent link="${front_side}_hip_aa_link"/>
+        <child link="${front_side}_hip_fe_link"/>
+    </joint>
+
+    <xacro:hip_fe_transmission front_side="${front_side}"/>
+</xacro:macro>
+
+<xacro:macro name="front_left_hip_fe">
+    <xacro:hip_fe front_side="front_left">
+        <origin xyz="0.083972 0.0878 0" rpy="0 0 0"/>
+        <inertial>
+            <mass value="0.139328"/>
+            <origin xyz="0.01808 0.004477 -0.014405" rpy="0 0 ${M_PI}"/>
+            <inertia ixx="6.080E-05" ixy="-3.521E-06" ixz="2.540E-06"
+                     iyy="1.052E-04" iyz="1.247E-05" izz="7.157E-05"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 -0.003" rpy="0 0 ${M_PI}"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/front_hip_fe.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:hip_fe>
+</xacro:macro>
+
+<xacro:macro name="front_right_hip_fe">
+    <xacro:hip_fe front_side="front_right">
+        <origin xyz="0.083972 -0.0878 0" rpy="0 0 0"/>
+        <inertial>
+            <mass value="0.153185"/>
+            <origin xyz="0.01808 0.004477 -0.011405" rpy="0 0 ${M_PI}"/>
+            <inertia ixx="6.080E-05" ixy="3.521E-06" ixz="2.540E-06"
+                     iyy="1.052E-04" iyz="-1.247E-05" izz="7.157E-05"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 0" rpy="0 0 ${M_PI}"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/front_hip_fe.stl" scale="0.001 -0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:hip_fe>
+</xacro:macro>
+
+<xacro:macro name="rear_left_hip_fe">
+    <xacro:hip_fe front_side="rear_left">
+        <origin xyz="0.054678 0.0878 0" rpy="0 0 0"/>
+        <inertial>
+            <mass value="0.138767"/>
+            <origin xyz="-0.01668 0.004473 -0.014463" rpy="0 0 ${M_PI}"/>
+            <inertia ixx="6.067E-05" ixy="4.443E-06" ixz="-3.065E-06"
+                     iyy="1.026E-04" iyz="1.247E-05" izz="6.917E-05"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 -0.003" rpy="0 0 ${M_PI}"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/rear_hip_fe.stl" scale="-0.001 0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:hip_fe>
+</xacro:macro>
+
+<xacro:macro name="rear_right_hip_fe">
+    <xacro:hip_fe front_side="rear_right">
+        <origin xyz="0.054678 -0.0878 0" rpy="0 0 0"/>
+        <inertial>
+            <mass value="0.138767"/>
+            <origin xyz="0.01668 0.004473 -0.014463" rpy="0 0 0"/>
+            <inertia ixx="6.067E-05" ixy="-4.443E-06" ixz="3.065E-06"
+                     iyy="1.026E-04" iyz="1.247E-05" izz="6.917E-05"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 -0.003" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/rear_hip_fe.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:hip_fe>
+</xacro:macro>
+</robot>

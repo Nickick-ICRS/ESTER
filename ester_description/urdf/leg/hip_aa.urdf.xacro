@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+
+<xacro:macro name="hip_aa"
+             params="front side *joint_origin **inertial **geometry">
+        <link name="${front}_${side}_hip_aa_link">
+        <inertial>
+            <xacro:insert_block name="inertial"/>
+        </inertial>
+        <visual>
+            <xacro:insert_block name="geometry"/>
+        </visual>
+        <collision>
+            <xacro:insert_block name="geometry"/>
+        </collision>
+    </link>
+
+    <joint name="${front}_${side}_hip_aa_joint" type="fixed">
+        <xacro:insert_block name="joint_origin"/>
+        <parent link="${front}_spine_yaw_link"/>
+        <child link="${front}_${side}_hip_aa_link"/>
+    </joint>
+</xacro:macro>
+
+<xacro:macro name="front_left_hip_aa">
+    <xacro:hip_aa front="front" side="left">
+        <origin xyz="0.01 -0.024 -0.1065" rpy="0 ${-FRONT_LEG_PITCH} 0"/>
+        <inertial>
+            <mass value="0.149885"/>
+            <origin xyz="-0.017329 -0.026389 0.014" rpy="0 0 ${M_PI}"/>
+            <inertia ixx="2.575E-04" ixy="2.519E-05" ixz="7.023E-09"
+                    iyy="2.683E-05" iyz="-6.917E-08" izz="2.557E-04"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 0" rpy="0 0 ${M_PI}"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/front_hip_aa.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:hip_aa>
+</xacro:macro>
+
+<xacro:macro name="front_right_hip_aa">
+    <xacro:hip_aa front="front" side="right">
+        <origin xyz="0.01 0.024 -0.1065" rpy="0 ${-FRONT_LEG_PITCH} 0"/>
+        <inertial>
+            <mass value="0.149885"/>
+            <origin xyz="-0.017329 -0.026389 0.014"/>
+            <inertia ixx="2.575E-04" ixy="2.519E-05" ixz="7.023E-09"
+                    iyy="2.683E-05" iyz="-6.917E-08" izz="2.557E-04"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/front_hip_aa.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:hip_aa>
+</xacro:macro>
+
+<xacro:macro name="rear_left_hip_aa">
+    <xacro:hip_aa front="rear" side="left">
+        <origin xyz="${-0.10425-0.03} -0.025 -0.02" rpy="0 0 0"/>
+        <inertial>
+            <mass value="0.149885"/>
+            <origin xyz="-0.017329 -0.026389 0.014" rpy="0 0 ${M_PI}"/>
+            <inertia ixx="2.575E-04" ixy="2.519E-05" ixz="7.023E-09"
+                    iyy="2.683E-05" iyz="-6.917E-08" izz="2.557E-04"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 0" rpy="0 0 ${M_PI}"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/front_hip_aa.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:hip_aa>
+</xacro:macro>
+
+<xacro:macro name="rear_right_hip_aa">
+    <xacro:hip_aa front="rear" side="right">
+        <origin xyz="${-0.10425-0.03} 0.025 -0.02" rpy="0 0 0"/>
+        <inertial>
+            <mass value="0.149885"/>
+            <origin xyz="-0.017329 -0.026389 0.014"/>
+            <inertia ixx="2.575E-04" ixy="2.519E-05" ixz="7.023E-09"
+                    iyy="2.683E-05" iyz="-6.917E-08" izz="2.557E-04"/>
+        </inertial>
+        <geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/leg/front_hip_aa.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </geometry>
+    </xacro:hip_aa>
+</xacro:macro>
+
+</robot>

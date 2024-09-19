@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find ester_description)/urdf/leg/hip_aa.urdf.xacro"/>
+    <xacro:include filename="$(find ester_description)/urdf/leg/hip_fe.urdf.xacro"/>
+    <xacro:include filename="$(find ester_description)/urdf/leg/upper_leg.urdf.xacro"/>
+    <xacro:include filename="$(find ester_description)/urdf/leg/lower_leg.urdf.xacro"/>
+    <xacro:include filename="$(find ester_description)/urdf/leg/foot_contact.urdf.xacro"/>
+
+<xacro:macro name="front_left_leg">
+    <xacro:front_left_hip_aa/>
+    <xacro:front_left_hip_fe/>
+    <xacro:front_left_upper_leg/>
+    <xacro:lower_leg front="front" side="left"/>
+    <xacro:foot_contact front="front" side="left"/>
+</xacro:macro>
+
+<xacro:macro name="front_right_leg">
+    <xacro:front_right_hip_aa/>
+    <xacro:front_right_hip_fe/>
+    <xacro:front_right_upper_leg/>
+    <xacro:lower_leg front="front" side="right"/>
+    <xacro:foot_contact front="front" side="right"/>
+</xacro:macro>
+
+<xacro:macro name="rear_left_leg">
+    <xacro:rear_left_hip_aa/>
+    <xacro:rear_left_hip_fe/>
+    <xacro:rear_left_upper_leg/>
+    <xacro:lower_leg front="rear" side="left"/>
+    <xacro:foot_contact front="rear" side="left"/>
+</xacro:macro>
+
+<xacro:macro name="rear_right_leg">
+    <xacro:rear_right_hip_aa/>
+    <xacro:rear_right_hip_fe/>
+    <xacro:rear_right_upper_leg/>
+    <xacro:lower_leg front="rear" side="right"/>
+    <xacro:foot_contact front="rear" side="right"/>
+</xacro:macro>
+
+</robot>

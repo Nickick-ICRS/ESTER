@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="controller_override" default=""/>
+    <arg name="debug" default="false"/>
+    <arg name="profile" default="false"/>
+    <arg name="visualise" default="false"/>
+    <arg name="write_to_file" default="false"/>
+    <rosparam command="load" file="$(find ester_mpc)/config/mpc.yaml"/>
+    <group unless="$(eval arg('debug') or arg('profile'))">
+        <node name="find_CoT" pkg="ester_mpc" type="find_cots"
+            output="log">
+            <param name="visualise" value="$(arg visualise)"/>
+            <param name="write_to_file" value="$(arg write_to_file)"/>
+        </node>
+    </group>
+    <group if="$(arg debug)">
+        <node name="find_CoT" pkg="ester_mpc" type="find_cots"
+            output="screen"
+            launch-prefix="xterm -e gdb --args">
+            <param name="visualise" value="$(arg visualise)"/>
+            <param name="write_to_file" value="$(arg write_to_file)"/>
+        </node>
+    </group>
+    <group if="$(eval arg('profile') and not arg('debug'))">
+        <node name="find_CoT" pkg="ester_mpc" type="find_cots"
+            output="log"
+            launch-prefix="valgrind --tool=callgrind --callgrind-out-file='callgrind.dartMPC.%p'">
+            <param name="visualise" value="$(arg visualise)"/>
+            <param name="write_to_file" value="$(arg write_to_file)"/>
+        </node>
+    </group>
+</launch>

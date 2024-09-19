@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ester">
+    <!-- Constant definitions -->
+    <xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+
+    <!-- Gazebo -->
+    <xacro:include filename="$(find ester_description)/urdf/gazebo.urdf.xacro"/>
+
+    <!-- Legs -->
+    <xacro:include filename="$(find ester_description)/urdf/leg/leg.urdf.xacro"/>
+    
+    <!-- Spine -->
+    <xacro:include filename="$(find ester_description)/urdf/spine/spine.urdf.xacro"/>
+
+    <!-- Head -->
+    <xacro:include filename="$(find ester_description)/urdf/head/head.urdf.xacro"/>
+
+    <!-- Dummy parent link for Gazebo -->
+    <link name="base_link"/>
+    
+    <xacro:spine/>
+    <xacro:front_left_leg/>
+    <xacro:front_right_leg/>
+    <xacro:rear_left_leg/>
+    <xacro:rear_right_leg/>
+    <!--<xacro:neck/>-->
+    <xacro:head/>
+</robot>

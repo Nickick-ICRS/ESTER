@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ester_kinematics</name>
+  <version>0.0.0</version>
+  <description>The ester_kinematics package</description>
+
+  <maintainer email="nick@todo.todo">nick</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <depend>roscpp</depend>
+  <depend>roslib</depend>
+  <depend>ester_common</depend>
+  <depend>sensor_msgs</depend>
+  <depend>eigen_conversions</depend>
+  <depend>visualization_msgs</depend>
+  <depend>urdf</depend>
+</package>

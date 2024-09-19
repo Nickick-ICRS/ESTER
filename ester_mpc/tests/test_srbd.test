@@ -1,0 +1,4 @@
+<launch>
+    <test test-name="test_srbd" pkg="ester_mpc" type="test_srbd"
+          time-limit="300"/>
+</launch>

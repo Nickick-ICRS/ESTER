@@ -1,0 +1,90 @@
+mpc:
+    update_rate: 200
+    controller_type: "srbd"
+    horizon: 6
+    time_step: 0.08
+    decay_rate: 0.95
+    mass: 4.14207
+    inertia: [0.0744351, -0.000410234, 0.00477814,
+              -0.000410234, 0.133613, 0.00235354,
+              0.00477814, 0.00235354, 0.123878]
+    com_offset: [-0.055726, -0.00446758, -0.0532182]
+    contact_force_threshold: 2
+    acc_limit: 0.5
+
+    srbd:
+        mu: 0.5
+        # r, v, R, w
+        Q_x: [1e5, 2e5, 3e5,
+              5e2, 1e3, 1e3,
+              1e4, 2e4, 8e2,
+              4e1, 4e1, 1e1]
+        Qf_x: [1e5, 2e5, 3e5,
+               5e2, 1e3, 1e3,
+               1e4, 2e4, 8e2,
+               4e1, 4e1, 1e1]
+        Q_u: [0.1, 0.2, 0.1,
+              0.1, 0.2, 0.1,
+              0.1, 0.2, 0.1,
+              0.1, 0.2, 0.1]
+
+    nci:
+        mu: 0.5
+        # R, r, w, v
+        Q_x: [1e4, 2e4, 8e2,
+              1e5, 2e5, 3e5,
+              4e1, 4e1, 1e1,
+              5e2, 1e3, 1e3]
+        Qf_x: [1e4, 2e4, 8e2,
+               1e5, 2e5, 3e5,
+               4e1, 4e1, 1e1,
+               5e2, 1e3, 1e3]
+        Q_u: [0.1, 0.2, 0.1,
+              0.1, 0.2, 0.1,
+              0.1, 0.2, 0.1,
+              0.1, 0.2, 0.1]
+        
+ester:
+    gait_manager:
+        generate_spine_trajectories: true
+        trajectories:
+            z_lift_start: 0.03
+            z_lift_end: 0.05
+            future: 0.5
+            timestep: 0.01
+        STATIONARY:
+            stance_dur: 0.1
+            swing_ratio: 0.
+            phases: [0., 0.5, 0.75, 0.25]
+            Kpitch: 0.
+            Kyaw: 0.
+        WALKING:
+            stance_dur: 0.3
+            swing_ratio: 0.25
+            phases: [0., 0.5, 0.75, 0.25]
+            Kpitch: 2.0
+            Kyaw: 0.5
+        TROTTING:
+            stance_dur: 0.2
+            swing_ratio: 0.52
+            phases: [0., 0.5, 0.5, 0.]
+            Kpitch: 2.0
+            Kyaw: 0.1
+        PACING:
+            stance_dur: 0.2
+            swing_ratio: 0.5
+            phases: [0., 0.5, 0., 0.5]
+            Kpitch: 0.
+            Kyaw: 0.
+        PRONKING:
+            stance_dur: 0.06
+            swing_ratio: 0.7
+            phases: [0., 0., 0., 0.]
+            Kpitch: 0.
+            Kyaw: 0.
+        BOUNDING:
+            stance_dur: 0.05
+            swing_ratio: 0.7
+            phases: [0., 0.05, 0.15, 0.2]
+            Kpitch: 1.5
+            Kyaw: 0.1

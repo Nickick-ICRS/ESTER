@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<gazebo>
+    <plugin name="ester_hwi_plugin" filename="libester_hwi_plugin.so"/>
+    <selfCollide>false</selfCollide>
+</gazebo>
+
+</robot>

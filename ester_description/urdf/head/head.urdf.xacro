@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="https://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+
+<xacro:macro name="head">
+    <link name="head_link">
+        <inertial>
+            <mass value="0.000117815"/>
+            <origin xyz="0.023956 -0.002 32.368"/>
+            <inertia ixx="1.923E-08" ixy="1.698E-10" ixz="-7.927E-09"
+                     iyy="2.271E-08" iyz="-6.482E-11" izz="2.471E-08"/>
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/head/skull.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ester_description/meshes/head/skull.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="head_joint" type="fixed">
+        <origin xyz="0.11 0 0.02" rpy="0 ${10*M_PI/180} 0"/>
+        <parent link="spine_center_link"/>
+        <child link="head_link"/>
+    </joint>
+
+    <gazebo reference='head_joint'>
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+</xacro:macro>
+
+</robot>

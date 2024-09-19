@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ester_description)/urdf/constants.xacro"/>
+
+<xacro:macro name="hip_fe_transmission" params="front_side">
+    <transmission name="${front_side}_hip_fe_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${front_side}_hip_fe_joint">
+            <hardwareInterface>${JOINT_INTERFACE}</hardwareInterface>
+        </joint>
+        <actuator name="${front_side}_hip_fe_motor">
+            <hardwareInterface>${JOINT_INTERFACE}</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+</xacro:macro>
+
+</robot>
+
