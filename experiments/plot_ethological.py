@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
 import os
+
+plt.rcParams.update({'font.size': 12})
 
 CONTACT_THRESHOLD = 2.
 ZERO_THRESHOLD = 1e-3
@@ -56,10 +57,18 @@ def plot_hildebrand_df(df: pd.DataFrame, name: str):
         if i == len(idxs)-1:
             break
         next_idx = idxs[i+1]
-        avg_fl_contacts += make_fixed_len_array(fl_contacts, idx, next_idx) / N
-        avg_fr_contacts += make_fixed_len_array(fr_contacts, idx, next_idx) / N
-        avg_rl_contacts += make_fixed_len_array(rl_contacts, idx, next_idx) / N
-        avg_rr_contacts += make_fixed_len_array(rr_contacts, idx, next_idx) / N
+        dur = next_idx - idx
+        if dur < 50:
+            N -= 1
+            continue
+        avg_fl_contacts += make_fixed_len_array(fl_contacts, idx, next_idx)
+        avg_fr_contacts += make_fixed_len_array(fr_contacts, idx, next_idx)
+        avg_rl_contacts += make_fixed_len_array(rl_contacts, idx, next_idx)
+        avg_rr_contacts += make_fixed_len_array(rr_contacts, idx, next_idx)
+    avg_fl_contacts /= N
+    avg_fr_contacts /= N
+    avg_rl_contacts /= N
+    avg_rr_contacts /= N
     plot_hildebrand(avg_fl_contacts, avg_fr_contacts, avg_rl_contacts, avg_rr_contacts, name)
 
 
